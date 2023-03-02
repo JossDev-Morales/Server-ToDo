@@ -18,7 +18,8 @@ const ToDo=db.define('ToDos',{
     },
     status:{
         type:DataTypes.BOOLEAN,
-        allowNull:false
+        allowNull:false,
+        defaultValue:false
     },
     category:{
         type:DataTypes.STRING(11),

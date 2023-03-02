@@ -1,12 +1,33 @@
 const {Router}=require('express')
-const { where } = require('sequelize')
 const ToDo=require('../models/ToDo.model')
 
 const router=Router()
 
 router.get('/api/v1/todo', async (req,res)=>{
     try {
-        const result = await ToDo.findAll()
+        const result = await ToDo.findAll({
+            where:{status:false}
+        })
+        res.json(result)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+router.get('/api/v1/todo/done', async (req,res)=>{
+    try {
+        const result = await ToDo.findAll({
+            where:{status:true}
+        })
+        res.json(result)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+router.delete('/api/v1/todo/done', async (req,res)=>{
+    try {
+        const result = await ToDo.destroy({
+            where:{status:true}
+        })
         res.json(result)
     } catch (error) {
         res.status(400).json(error)
